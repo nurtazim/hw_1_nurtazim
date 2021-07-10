@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<h2>Товары</h2>
+
+{% for product in product_list%}
+    <a href="Category/{{ Category.id}}/"> {{ product}}</a><br/>
+    <span>Цена:{{ product.price }}</span>
+    <hr>
+    <span>Описание: {{ product.description }}</span>
+    <hr/>
+{% endfor %}
 </body>
 </html>

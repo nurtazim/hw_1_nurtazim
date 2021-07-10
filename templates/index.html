@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Главная страница</title>
 </head>
 <body>
-$END$
+<h2>Выберите Категорию</h2>
+{% for Category in Category_list %}
+    <a href="/Category/{{ Category.id}}/">{{ Category}}</a><br/>
+    <hr/>
+{% endfor %}
 </body>
 </html>
