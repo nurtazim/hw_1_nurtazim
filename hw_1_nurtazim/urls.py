@@ -19,13 +19,18 @@ Including another URLconf
 EXTRA: Создать модель Tag и связать с Product через ManyToManyField. На странице одного товара вывести тэги данного товара
 
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from product import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.category_vievs),
     path("Category/<int:Category_id>/",views.category_item_views),
+    path("products/<int:Product_id>/", views.product_item_views)
 
-]
+
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
     class Meta:
@@ -18,13 +17,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+
 class Products(models.Model):
     title = models.CharField(max_length=100, verbose_name="Заголовок")
     description = models.TextField(null=True,blank=True,verbose_name="Описание")
     price = models.FloatField(verbose_name="Цена")
     category = models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name="Категория")
     tags = models.ManyToManyField(Tag, blank=True,verbose_name="Теги")
-
 
     class Meta:
         verbose_name = "Продукт"
