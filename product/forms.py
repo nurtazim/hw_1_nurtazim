@@ -8,22 +8,22 @@ class ProductForm(forms.ModelForm):
         widgets = {
             "title":forms.TextInput(
                 attrs={
-                    "class":"forms-control"
+                    "class":"form-control"
                 }
             ),
             "price":forms.NumberInput(
                 attrs={
-                    "class":"forms-control"
+                    "class":"form-control"
                 }
             ),
             "category":forms.Select(
                 attrs={
-                    "class": "forms-control"
+                    "class": "form-control"
                 }
             ),
             "tags":forms.SelectMultiple(
                 attrs={
-                    "class": "forms-control"
+                    "class": "form-control"
                 }
             )
         }
