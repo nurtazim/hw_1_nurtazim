@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">ДОМОЙ</a>
+                    <a class="nav-link active" aria-current="page" href="/add_product/">ДОБАВИТЬ ТОВАР</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -49,11 +49,14 @@
                             <hr class="dropdown-divider">
                     </ul>
                 </li>
-
+            </form>
         </div>
     </div>
 </nav>
+<dif class="container">
 {% block content %}
 {% endblock %}
+</dif>
+
 </body>
 </html>

@@ -30,7 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.category_vievs),
     path("Category/<int:Category_id>/",views.category_item_views),
-    path("products/<int:Product_id>/", views.product_item_views)
+    path("products/<int:Product_id>/", views.product_item_views),
+    path("add_product/",views.add_product),
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
