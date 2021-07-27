@@ -29,6 +29,8 @@ from product import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.category_vievs),
+    path("logout/", views.logout),
+    path("login/", views.login),
     path("Category/<int:Category_id>/",views.category_item_views),
     path("products/<int:Product_id>/", views.product_item_views),
     path("add_product/",views.add_product),

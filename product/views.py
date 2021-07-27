@@ -1,7 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from product.models import Category
 from product.models import Products
 from product.forms import ProductForm
+from  django.contrib import auth
+from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def category_vievs(request):
@@ -41,7 +45,7 @@ def product_item_views(request,Product_id):
     }
     return render(request, "product.html", context=data)
 
-
+@login_required(login_url="/login/")
 def add_product(request):
     if request.method =="GET":
         data={
@@ -53,3 +57,21 @@ def add_product(request):
         if form.is_valid():
             form.save()
             return redirect("/")
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/login/")
+
+def login(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect("/")
+    data = {
+        "form": LoginForm()
+    }
+    return render(request, "Login.html", context=data)
