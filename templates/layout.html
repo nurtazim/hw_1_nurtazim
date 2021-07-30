@@ -19,14 +19,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li>
-            {% if user.is_authenticated %}
+             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/add_product/">ДОБАВИТЬ ТОВАР</a>
                  </li>
                 {% endif %}
-                <li class="nav-item dropdown">
+                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         ТОВАРЫ
@@ -62,14 +62,14 @@
                     <a class="nav-link " href="/login/">Войти({{user}})</a>
                 {% endif %}
             </li>
-            </form>
+             </ul>
         </div>
     </div>
 </nav>
-<dif class="container">
+<div class="container">
 {% block content %}
 {% endblock %}
-</dif>
+</div>
 
 </body>
 </html>

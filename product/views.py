@@ -2,10 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from product.models import Category
 from product.models import Products
-from product.forms import ProductForm
+from product.forms import ProductForm,RegisterForm
 from  django.contrib import auth
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from product.models import ConfeirmCode
+
 # Create your views here.
 
 def category_vievs(request):
@@ -75,3 +77,37 @@ def login(request):
         "form": LoginForm()
     }
     return render(request, "Login.html", context=data)
+
+
+def register(request):
+    if request.method=="POST":
+        form=RegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/login/")
+        else:
+            data={
+                "form":form
+            }
+            return render(request,"register.html",context=data)
+    data = {
+        "form": RegisterForm()
+    }
+    return render(request,"register.html",context=data)
+
+
+def check(request):
+    if request.method == "POST":
+        form = RegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+        else:
+            data = {
+                "form": form
+            }
+            return render(request, "check.html", context=data)
+    data = {
+        "form": RegisterForm()
+    }
+    return render(request, "check.html", context=data)
