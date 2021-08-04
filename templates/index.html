@@ -9,8 +9,8 @@
     <br>
     <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item{% if page <= 1 %} disabled {% endif %}">
-      <a class="page-link" href="/?page={{ prev_page }}" aria-label="Previous">
+{#    <li class="page-item{% if page <= 1 %} disabled {% endif %}">#}
+      <a class="page-link" href="/?page={% if prev_page < last_page %}{{ last_page }}{% else %}{{ next_page }} {% endif %}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>

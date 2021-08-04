@@ -21,7 +21,7 @@ def category_vievs(request,Category_id):
     }
     return render(request, "item.html", context=data)
 
-PAGE_SIZE=2
+PAGE_SIZE=7
 def main_page_vievs(request):
     page = int(request.GET.get("page", "1"))
     print("Страница:", page)
