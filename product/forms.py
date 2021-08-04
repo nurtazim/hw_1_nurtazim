@@ -1,9 +1,11 @@
+import secrets
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from product.models import ConfeirmCode
+# from product.models import ConfeirmCode
 
 from product.models import Products
 
@@ -87,13 +89,14 @@ class RegisterForm(forms.Form):
         )
         user.save()
         send_mail(
-            message="test masage",
+            message=random(),
             subject="Registration_test",
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.cleaned_data["username"]]
         )
         return user
-
+def random():
+    return secrets.token_urlsafe(10)
 class CheckForm(forms.Form):
 
     username=forms.CharField(max_length=100,min_length=3,widget=forms.TextInput(

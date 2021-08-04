@@ -6,35 +6,45 @@ from product.forms import ProductForm,RegisterForm
 from  django.contrib import auth
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
-from product.models import ConfeirmCode
 
-# Create your views here.
+categories = Category.objects.all()
 
-def category_vievs(request):
-    category=Category.objects.all()
-    produts=Products.objects.all()
-    print(category)
-
-    data={
-        "Title":"Главная страница",
-        "Category_list" : category,
-        "Product_list": produts
-    }
-    return render(request,"index.html",context=data)
-
-
-def category_item_views(request,Category_id):
+def category_vievs(request,Category_id):
     prod = Products.objects.filter(category_id=Category_id)
-    category=Category.objects.all()
+    category = Category.objects.all()
     produts = Products.objects.all()
 
     data = {
-        "product_list":prod,
+        "product_list": prod,
         "Category_list": category,
-        "Product_list":produts
+        "Product_list": produts
     }
     return render(request, "item.html", context=data)
 
+PAGE_SIZE=2
+def main_page_vievs(request):
+    page = int(request.GET.get("page", "1"))
+    print("Страница:", page)
+    print(f"Обьекты :[{(page - 1 * PAGE_SIZE)}:{page * PAGE_SIZE} ]")
+    products = Products.objects.all()
+    total = products.count()
+    page_count = total // PAGE_SIZE
+    if total % PAGE_SIZE > 0:
+        page_count = page_count + 1
+    next_page = page + 1
+    prev_page = page - 1
+    data = {
+        "title": "Главная страница",
+        "page": page,
+        "page_count": range(1, page_count + 1),
+        "next_page": next_page,
+        "prev_page": prev_page,
+        "last_page": page_count,
+        "product_list": products[(page - 1) * PAGE_SIZE:page * PAGE_SIZE],
+        "Category_list": categories,
+        "Product_list": products
+    }
+    return render(request, "index.html", context=data)
 
 def product_item_views(request,Product_id):
     product = Products.objects.get(id=Product_id)
@@ -84,7 +94,7 @@ def register(request):
         form=RegisterForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/login/")
+            return redirect("/check/")
         else:
             data={
                 "form":form
@@ -98,16 +108,14 @@ def register(request):
 
 def check(request):
     if request.method == "POST":
-        form = RegisterForm(data=request.POST)
-        if form.is_valid():
-            form.save()
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
             return redirect("/")
-        else:
-            data = {
-                "form": form
-            }
-            return render(request, "check.html", context=data)
     data = {
-        "form": RegisterForm()
+        "form": LoginForm()
     }
     return render(request, "check.html", context=data)
+
