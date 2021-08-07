@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from product.models import Category
 from product.models import Products
@@ -118,4 +119,14 @@ def check(request):
         "form": LoginForm()
     }
     return render(request, "check.html", context=data)
+def search(request):
+    query=request.GET.get("query","")
+    print(query)
+    products=Products.objects.filter(title__contains=query)
+    print(products.values())
+    return JsonResponse(data={"list":list(products.values())},safe=False)
+
+
+def javascript(request):
+    return render(request,"javascript.html")
 
