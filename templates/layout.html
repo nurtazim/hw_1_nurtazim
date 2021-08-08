@@ -55,13 +55,18 @@
              </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link " href="/logout/">Выйти({{user}})</a>
+                    <a class="nav-link " href="/logout/">ВЫЙТИ({{user}})</a>
                 </li>
                     {% else %}
                     <li class="nav-item">
-                    <a class="nav-link " href="/login/">Войти({{user}})</a>
+                    <a class="nav-link " href="/login/">ВОЙТИ({{user}})</a>
                 {% endif %}
-            </li>
+                 </li>
+             {% if not user.is_authenticated %}
+              <li class="nav-item">
+                    <a class="nav-link " href="/register/">РЕГИСТРАЦИЯ</a>
+                     {% endif %}
+                </li>
              </ul>
              <li class="nav-item">
                     <a class="nav-link " href="/javascript/">ПОИСК ТОВАРА</a>

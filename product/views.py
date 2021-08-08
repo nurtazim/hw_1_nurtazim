@@ -1,7 +1,9 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from product.models import Category
+from product.models import Category,ConfeirmCode
 from product.models import Products
 from product.forms import ProductForm,RegisterForm
 from  django.contrib import auth
@@ -95,7 +97,7 @@ def register(request):
         form=RegisterForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/check/")
+            return redirect("/login/")
         else:
             data={
                 "form":form
@@ -107,18 +109,6 @@ def register(request):
     return render(request,"register.html",context=data)
 
 
-def check(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            auth.login(request, user)
-            return redirect("/")
-    data = {
-        "form": LoginForm()
-    }
-    return render(request, "check.html", context=data)
 def search(request):
     query=request.GET.get("query","")
     print(query)
@@ -130,3 +120,14 @@ def search(request):
 def javascript(request):
     return render(request,"javascript.html")
 
+
+def activate(request,code):
+    print(code)
+    try:
+        user=ConfeirmCode.objects.get(code=code,
+                                      valid_until__gte=datetime.datetime.now()).user
+        user.is_active = True
+        user.save()
+    except:
+        pass
+    return redirect("/login/")
